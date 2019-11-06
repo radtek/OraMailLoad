@@ -32,6 +32,14 @@ namespace OraMailLoad
             return connection;
         }
 
+        public static void Disconnect()
+        {
+            if (conn.State == ConnectionState.Open)
+            {
+                conn.State = ConnectionState.Closed;
+            }
+        }
+
         public static OracleConnection conn = Connect(connectionString);
     }
 
@@ -76,7 +84,7 @@ namespace OraMailLoad
                 commandMain.ExecuteNonQuery();
                 logger.LogMessage("Вставлено в основную таблицу");
 
-                // If succrssfully inserted into main table, then we continue this job and putting files into another table.
+                // If successfully inserted into main table, then we continue this job and putting files into another table.
 
                 OracleCommand commandFile = new OracleCommand(fileInsert);
               
